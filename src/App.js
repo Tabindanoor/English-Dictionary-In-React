@@ -74,16 +74,51 @@
 
 import React from 'react';
 import Result from './Result';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 const speechsynth = window.speechSynthesis;
 
-function App() {
+function App() { 
+   const speech = useMemo(() => speechsynth.getVoices(), []);
   const [clicked, setClicked] = useState(false);
   const [selected, setSelected] = useState("Google US English");
   const [text, setText] = useState("");
+  const [meaning , setMeaning ] = useState()
+  const [word, setWord] = useState()
+  const [phonetics, setPhonetics] = useState()
+  const [error , setError] = useState() 
 
-  const speech = useMemo(() => speechsynth.getVoices(), []);
+  const dictionaryApp=(text)=>{
+    // console.log(text,"text")
+    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${text}`;
+    fetch(url).then(res=>  res.json()
+      ).then(data=>
+        {
+          // console.log(data,"bb")
+          // console.log(data[0].meanings,"hehe")
+          // setMeaning(data[0].meanings)
+          // console.log(data[0].word, "is this ");
+          // console.log(data[0].phonetics);
+          // console.log(data[0].meanings); 
+          setMeaning(data[0].meanings);
+          setPhonetics(data[0].phonetics);    
+          setWord(data[0].word);
+          setError("")
+
+        }
+      
+    ).catch(err=>setError(err))
+  }
+  useEffect(() => {
+    // console.log(text,"ye test ")
+    if(!text) return
+   const bounce =setTimeout(() => {
+        dictionaryApp(text) 
+   }, 1000);
+   return () => clearTimeout(bounce);
+   
+  }, [text])
+
 
   const startPlay = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -98,6 +133,7 @@ function App() {
   const handlePlay = () => {
     if (!text.trim()) return;
     if (!speechsynth.speaking) {
+      // console.log(text,"test");
       setClicked(true);
       startPlay(text);
     } else {
@@ -128,7 +164,7 @@ function App() {
 
         </div>
       </div>
-      <Result />
+      <Result setText={setText} word={word} phonetics={phonetics} meaning={meaning}    />
     </div>
   );
 }

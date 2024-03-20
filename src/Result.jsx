@@ -1,19 +1,73 @@
 import React from 'react'
 
-const Result = () => {
+const Result = ({setText,word, phonetics, meaning}) => {
+    console.log(meaning,"kk")
   return (
     <div>
-        <p>Hello</p>
-        <p>/he 'leu / /he 'lou/</p>
-        <p>Noun</p>
+        {/* <p>{word}</p> */}
+        {/* <p>
+            {
+          phonetics && phonetics.map((phone, index)=>(
+             <span key={index}>{phone.text} </span>
+          ))
+        }
+        </p> */}
+
         <div>
-            <p>Meaning</p>
-            <p>hello or an equivalent greeting</p>
+
+           <p>{
+           meaning && meaning.map((mean,index)=>((
+                    <>
+                        <p>
+                           <p>{mean.partOfSpeech}</p> 
+                           <div>
+                                <h3>Meaning </h3>
+                                {
+                            mean && mean.definitions.map((def,index)=>(
+                                <>
+                                    <p className='text-green-800 ' key={index}>{def.definition} </p>
+                                </>
+                            ))
+
+
+                        } 
+                           </div>
+
+                           <div>
+                                <h3>synonyms </h3>
+{
+                            mean && mean.synonyms.map((syno,index)=>(
+                                <>
+                                    <p className='font-bold ' key={index} > {syno}</p>  
+                                
+                                </>
+                            ))
+                        } 
+                           </div>
+
+                        </p>
+                      
+                       {/* <div>
+                        <p>Synonyms</p>
+                        <p>{
+                            mean && mean.synonyms.map((syno,index)=>(
+                                <>
+                                    <p onClick={setText(syno)}>{syno}</p>  
+                                
+                                </>
+                            ))
+                        } </p>  
+                       </div> */}
+  
+                    </>
+                
+                )
+            ))
+        }
+</p> 
+
         </div>
-        <div>
-            <p>Synonyms</p>
-            <p>greeting, greeting, greeting</p>
-        </div>
+    
     </div>
   )
 }
