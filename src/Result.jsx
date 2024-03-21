@@ -26,6 +26,7 @@ const Result = ({setText,word, phonetics, meaning}) => {
                             mean && mean.definitions.map((def,index)=>(
                                 <>
                                     <p className='text-green-800 ' key={index}>{def.definition} </p>
+                                    <p className='text-green-800 ' key={index}>{def.definition} </p>
                                 </>
                             ))
 
