@@ -15,7 +15,7 @@ const Result = ({setText,word, phonetics, meaning}) => {
 
         <div>
 
-           <p>{
+           <p className='font-bold'>{
            meaning && meaning.map((mean,index)=>((
                     <>
                         <p>
@@ -25,7 +25,6 @@ const Result = ({setText,word, phonetics, meaning}) => {
                                 {
                             mean && mean.definitions.map((def,index)=>(
                                 <>
-                                    <p className='text-green-800 ' key={index}>{def.definition} </p>
                                     <p className='text-green-800 ' key={index}>{def.definition} </p>
                                 </>
                             ))
