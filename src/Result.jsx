@@ -4,15 +4,6 @@ const Result = ({setText,word, phonetics, meaning}) => {
     console.log(meaning,"kk")
   return (
     <div>
-        {/* <p>{word}</p> */}
-        {/* <p>
-            {
-          phonetics && phonetics.map((phone, index)=>(
-             <span key={index}>{phone.text} </span>
-          ))
-        }
-        </p> */}
-
         <div>
 
            <p className='font-bold'>{
